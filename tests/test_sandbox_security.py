@@ -1,4 +1,14 @@
 
+"""Adversarial, security-focused tests for the sandbox (the core safety boundary)."""
+import os
+import sys
+import tempfile
+from pathlib import Path
+
+import pytest
+
+from app.sandbox import ApprovalRequired, ResourceLimits, Sandbox, SandboxError, SandboxPolicy
+
 @pytest.mark.skipif(
     sys.platform != "linux",
     reason="RLIMIT_NPROC containment is Linux-specific.",
