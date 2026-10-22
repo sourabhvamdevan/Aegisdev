@@ -1,0 +1,18 @@
+# Static-analysis config. Pragmatic rule set for an evaluation prototype:
+# correctness and security lints on, cosmetic opinions off.
+line-length = 110
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "W", "I", "B", "S"]
+ignore = [
+  "E501",   # line length handled by formatter, not blocking
+  "S101",   # asserts are expected in tests
+  "S310",   # urllib open — local Ollama host only, documented
+  "S110",   # try/except/pass is intentional in best-effort cleanup
+  "B008",   # FastAPI uses callables in defaults by design
+]
+
+[lint.per-file-ignores]
+"tests/*" = ["S", "B", "F841"]
+"eval/*" = ["S"]

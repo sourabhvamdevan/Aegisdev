@@ -1,0 +1,17 @@
+# Core web/API
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+pydantic==2.13.5
+python-multipart==0.0.32
+
+# Model Context Protocol (official SDK)
+mcp==2.1.1
+
+# RAG parsing
+pypdf==5.9.0
+
+# --- Optional local embedding backend (privacy-first) ---
+# Uncomment to enable the semantic sentence-transformers backend. When absent,
+# the deterministic offline hashing embedder is used automatically, so the app
+# runs with zero model downloads (useful for CI and free-tier deploys).
+# sentence-transformers==3.0.1

@@ -1,0 +1,38 @@
+# AegisDev - zero-cost deployment blueprint for Render (Free plan).
+#
+# Deploy: push this repo to GitHub, then Render Dashboard -> New -> Blueprint
+# and select the repo. Render reads this file and builds the Dockerfile.
+#
+# The demo runs with the offline hashing embedder (no model download), an
+# in-memory index (no persistent disk) and no paid services or API keys.
+# Free web services sleep when idle, so the first request after a pause is a
+# cold start (~30-60s); /api/health is used as the readiness probe.
+services:
+  - type: web
+    name: aegisdev
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # Index lives in RAM: nothing to persist on an ephemeral free-tier disk.
+      - key: AEGISDEV_DB
+        value: ":memory:"
+      # Offline, deterministic embedder -> no model download, works with no network.
+      - key: EMBEDDING_BACKEND
+        value: "hashing"
+      # Retrieval: hybrid = BM25 (SQLite FTS5) + vector, fused with RRF.
+      - key: RETRIEVAL_MODE
+        value: "hybrid"
+      # Patch generation: deterministic built-in placeholder (no LLM needed).
+      - key: PATCH_GENERATOR
+        value: "builtin"
+      - key: PROVIDER_MODE
+        value: "local"
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "60"
+      # The web UI is served by this same app (same origin as the API), so CORS
+      # never needs opening. Leave CORS_ORIGINS unset (safe, non-wildcard default)
+      # and set it only if a *separate* frontend origin calls this API.

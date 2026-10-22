@@ -1,0 +1,14 @@
+services:
+  aegisdev:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - AEGISDEV_DB=:memory:
+      - EMBEDDING_BACKEND=auto
+      - PROVIDER_MODE=local
+      - CORS_ORIGINS=http://localhost:8000
+    # The app sandbox uses POSIX rlimits + namespace unshare. no_new_privileges
+    # hardens the container itself.
+    security_opt:
+      - no-new-privileges:true

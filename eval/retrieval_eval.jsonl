@@ -1,0 +1,14 @@
+{"question": "How is network access handled by default in the sandbox?", "expected_source": "security_model.md"}
+{"question": "What must happen before a generated patch is applied?", "expected_source": "approval_policy.md"}
+{"question": "How are citations formatted when retrieving content?", "expected_source": "rag_design.md"}
+{"question": "What resource limits does the sandbox enforce?", "expected_source": "security_model.md"}
+{"question": "How does the system detect prompt injection in documents?", "expected_source": "injection_defense.md"}
+{"question": "Which command allowlist rules apply inside the sandbox?", "expected_source": "security_model.md"}
+{"question": "How does incremental re-indexing work?", "expected_source": "rag_design.md"}
+{"question": "What happens to the original repository if a run fails?", "expected_source": "approval_policy.md"}
+{"question": "How does the agent avoid claiming tests passed when they did not run?", "expected_source": "agent_loop.md"}
+{"question": "What embedding backend is used for local privacy?", "expected_source": "rag_design.md"}
+{"question": "compute_prorated_refund", "expected_source": "billing_service.py"}
+{"question": "where is applyLateFeePenalty defined", "expected_source": "billing_service.py"}
+{"question": "WarehouseSyncError", "expected_source": "inventory_sync.py"}
+{"question": "reconcile_stock_levels", "expected_source": "inventory_sync.py"}
