@@ -1,17 +1,18 @@
-# AegisDev
+# AegisDev: Human-in-the-Loop (HITL) AI Developer Platform
 
-**A privacy-first AI developer platform:** an MCP server, a local RAG pipeline with
-hybrid search, and a sandboxed code-generation agent, wired into one web app and API.
+**A privacy-first, human-in-the-loop (HITL) AI developer platform:** an MCP server, a local RAG
+pipeline with hybrid search, and a sandboxed code-generation agent, wired into one web app and API.
+The AI proposes; a human decides.
 
 Give it documents and a repository. Ask questions and get **cited** answers, or request a
 coding change, review the proposed **unified diff**, run it in an **isolated sandbox**, and
-explicitly **approve or reject** it. Nothing is applied silently.
+explicitly **approve or reject** it. Every consequential action passes through a **human-in-the-loop
+(HITL) approval gate**, so nothing is applied silently.
 
 Everything runs at **zero cost**: local embeddings (with an offline fallback), an in-memory
 index that needs no persistent disk, and no paid APIs or keys.
 
-> Formerly named SentinelForge. The old `SENTINELFORGE_DB` / `SENTINELFORGE_DATA` environment
-> variables are still honoured as fallbacks, so existing deployments keep working.
+
 
 ---
 
@@ -25,7 +26,7 @@ index that needs no persistent disk, and no paid APIs or keys.
 | **Prompt-injection defence** | Retrieved text is fenced as untrusted data; injection patterns are detected and reported. |
 | **Sandboxed agent** | Plan, retrieve, patch, sandbox, critique, report. Success is claimed only on a real zero exit. |
 | **Deny-by-default sandbox** | Command allowlist, workspace jail, rlimits, no network, wall-clock timeout, output cap. |
-| **Human approval gate** | Applying a patch, enabling network, or running a high-risk command needs explicit approval. |
+| **Human-in-the-loop (HITL) approval gate** | Applying a patch, enabling network, or running a high-risk command needs explicit human approval. |
 | **Local LLM option** | Plug in Ollama for real patch synthesis, still private and free. |
 
 ---
@@ -91,7 +92,7 @@ Open `http://localhost:8000` for the console. `GET /docs` is the generated OpenA
 2. **Ask.** Cited retrieval (filename + locator); injection-flagged chunks are fenced as untrusted.
 3. **Change.** Submit a coding task. The agent plans, retrieves, proposes a unified diff, runs it
    in the sandbox, and self-critiques.
-4. **Decide.** Approve or reject the patch.
+4. **Decide (HITL).** A human reviews the diff, sandbox result and critique, then approves or rejects the patch.
 5. **Experiment.** The sandbox console runs allowlisted commands and shows the policy blocking
    unsafe ones live.
 
@@ -152,7 +153,7 @@ definition first. Add cases from your own repository before trusting the weights
 - **No network by default.** Enabling it is an explicit, approval-gated action.
 - **Wall-clock timeout** kills the whole process group. **Output cap** truncates runaway output.
 - **Untrusted retrieval.** Document content is fenced and never treated as instructions.
-- **Human approval gate** for applying patches, enabling network, and high-risk commands.
+- **Human-in-the-loop (HITL) approval gate** for applying patches, enabling network, and high-risk commands.
 - **Fail safe.** Originals are preserved; success is reported only on a real zero exit that was
   not a timeout. Tests are never claimed to pass if they did not run.
 - **Hardened container.** Non-root user, `no-new-privileges`, locked-down CORS, upload size cap,
