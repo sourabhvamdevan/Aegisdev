@@ -16,6 +16,23 @@ index that needs no persistent disk, and no paid APIs or keys.
 
 ---
 
+## Table of Contents
+
+- [Highlights](#highlights)
+- [Architecture](#architecture)
+- [Quickstart](#quickstart)
+- [Product workflow](#product-workflow)
+- [MCP tools and REST API](#mcp-tools-and-rest-api)
+- [Hybrid search (BM25 + vector)](#hybrid-search-bm25--vector)
+- [Security model](#security-model)
+- [Configuration](#configuration)
+- [Deploy to Render (free)](#deploy-to-render-free)
+- [Testing and quality](#testing-and-quality)
+- [Real code generation with a local LLM](#real-code-generation-with-a-local-llm)
+- [Roadmap (planned, not implemented yet)](#roadmap-planned-not-implemented-yet)
+
+---
+
 ## Highlights
 
 | | |
@@ -95,6 +112,38 @@ Open `http://localhost:8000` for the console. `GET /docs` is the generated OpenA
 4. **Decide (HITL).** A human reviews the diff, sandbox result and critique, then approves or rejects the patch.
 5. **Experiment.** The sandbox console runs allowlisted commands and shows the policy blocking
    unsafe ones live.
+
+### Workflow diagram
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[1. Ingest documents<br/>parse, chunk, embed, dedup, index]
+    B --> C{What does the user want?}
+
+    C -->|Ask a question| D[2. Hybrid retrieval<br/>BM25 + vector + RRF]
+    D --> E[Injection check<br/>flagged chunks fenced as untrusted]
+    E --> F[/Cited answer<br/>filename + locator/]
+
+    C -->|Change code| G[3. Agent plans task<br/>and retrieves context]
+    G --> H[Propose unified diff]
+    H --> I[Run diff + tests<br/>in isolated sandbox]
+    I --> J[Self-critique and report]
+    J --> K{4. Human review<br/>HITL approval gate}
+    K -->|Approve| L[Patch applied]
+    K -->|Reject| M[Discarded<br/>originals preserved]
+
+    C -->|Experiment| N[5. Sandbox console<br/>allowlisted commands only]
+    N --> O{Command allowed<br/>by policy?}
+    O -->|Yes| P[Run with rlimits,<br/>no network, timeout]
+    O -->|No| Q[Blocked and shown live]
+    O -->|High risk| K
+
+    L --> R([End])
+    M --> R
+    F --> R
+    P --> R
+    Q --> R
+```
 
 ## MCP tools and REST API
 
