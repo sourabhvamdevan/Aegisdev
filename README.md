@@ -62,6 +62,26 @@ flowchart LR
     AGENT -->|retrieve| RAG
     AGENT -->|run patch + tests| SBX
     AGENT -->|diff + critique| APPROVE{Human approval}
+
+    classDef ext fill:#1f6feb,stroke:#0a3069,color:#ffffff,stroke-width:2px
+    classDef ingest fill:#8957e5,stroke:#3b1e7a,color:#ffffff,stroke-width:2px
+    classDef store fill:#bf8700,stroke:#5c4400,color:#ffffff,stroke-width:2px
+    classDef engine fill:#d1242f,stroke:#6e1018,color:#ffffff,stroke-width:2px
+    classDef api fill:#e36209,stroke:#7a3300,color:#ffffff,stroke-width:2px
+    classDef front fill:#1a7f37,stroke:#0b3d1a,color:#ffffff,stroke-width:2px
+    classDef view fill:#0e8a8a,stroke:#054545,color:#ffffff,stroke-width:2px
+    classDef good fill:#2da44e,stroke:#0b3d1a,color:#ffffff,stroke-width:2px
+    classDef bad fill:#cf222e,stroke:#6e1018,color:#ffffff,stroke-width:2px
+    classDef decide fill:#f5c518,stroke:#7a5c00,color:#1b1f24,stroke-width:2px
+    classDef dark fill:#24292f,stroke:#000000,color:#ffffff,stroke-width:2px
+    class UI,EXT ext
+    class API api
+    class MCP dark
+    class RAG ingest
+    class AGENT engine
+    class SBX bad
+    class STORE store
+    class APPROVE decide
 ```
 
 | Path | Responsibility |
@@ -143,6 +163,30 @@ flowchart TD
     F --> R
     P --> R
     Q --> R
+
+    classDef ext fill:#1f6feb,stroke:#0a3069,color:#ffffff,stroke-width:2px
+    classDef ingest fill:#8957e5,stroke:#3b1e7a,color:#ffffff,stroke-width:2px
+    classDef store fill:#bf8700,stroke:#5c4400,color:#ffffff,stroke-width:2px
+    classDef engine fill:#d1242f,stroke:#6e1018,color:#ffffff,stroke-width:2px
+    classDef api fill:#e36209,stroke:#7a3300,color:#ffffff,stroke-width:2px
+    classDef front fill:#1a7f37,stroke:#0b3d1a,color:#ffffff,stroke-width:2px
+    classDef view fill:#0e8a8a,stroke:#054545,color:#ffffff,stroke-width:2px
+    classDef good fill:#2da44e,stroke:#0b3d1a,color:#ffffff,stroke-width:2px
+    classDef bad fill:#cf222e,stroke:#6e1018,color:#ffffff,stroke-width:2px
+    classDef decide fill:#f5c518,stroke:#7a5c00,color:#1b1f24,stroke-width:2px
+    classDef dark fill:#24292f,stroke:#000000,color:#ffffff,stroke-width:2px
+    class A,R good
+    class B ingest
+    class C,K,O decide
+    class D,E ingest
+    class F view
+    class G,H,J ext
+    class I bad
+    class L good
+    class M bad
+    class N api
+    class P good
+    class Q bad
 ```
 
 ## MCP tools and REST API
@@ -288,5 +332,3 @@ These are designed but **not** part of this release:
 - **AST-aware code chunking** (tree-sitter) so functions and classes stay intact in retrieval.
 - **Cross-file dependency graph** so multi-file patches pull in related files.
 - A VM/gVisor-grade sandbox boundary for production.
-
-
