@@ -12,6 +12,9 @@ explicitly **approve or reject** it. Every consequential action passes through a
 Everything runs at **zero cost**: local embeddings (with an offline fallback), an in-memory
 index that needs no persistent disk, and no paid APIs or keys.
 
+- **Live demo:** [AegisDev on Render](https://aegisdev.onrender.com/) (free tier, so the first request after idle may take 30 to 60 seconds)
+- **Source:** [github.com/sourabhvamdevan/Aegisdev](https://github.com/sourabhvamdevan/Aegisdev)
+
 
 
 ---
@@ -278,6 +281,8 @@ All values have safe defaults; nothing here is a secret. See `.env.example`.
 ---
 
 ## Deploy to Render (free)
+
+**Live deployment:** [https://aegisdev.onrender.com/](https://aegisdev.onrender.com/)
 
 `render.yaml` is a Render Free blueprint: Docker runtime, `/api/health` readiness probe, hashing
 embedder, in-memory index. No billing method, API key or evaluator account is needed.
