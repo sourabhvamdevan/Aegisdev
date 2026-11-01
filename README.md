@@ -1,5 +1,10 @@
 # AegisDev: Human-in-the-Loop (HITL) AI Developer Platform
 
+[![CI](https://github.com/sourabhvamdevan/Aegisdev/actions/workflows/ci.yml/badge.svg)](https://github.com/sourabhvamdevan/Aegisdev/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.x-blue)
+[![License](https://img.shields.io/github/license/sourabhvamdevan/Aegisdev)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://aegisdev.onrender.com/)
+
 **A privacy-first, human-in-the-loop (HITL) AI developer platform:** an MCP server, a local RAG
 pipeline with hybrid search, and a sandboxed code-generation agent, wired into one web app and API.
 The AI proposes; a human decides.
